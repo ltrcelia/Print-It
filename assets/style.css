@@ -123,6 +123,10 @@ header {
 #banner .arrow {
 	position: absolute;
 }
+#banner .arrow:hover {
+	transition: transform .1s;
+	transform:scale(1.1);
+}
 #banner .arrow_left {
 	left: 10px;
 }
