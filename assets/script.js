@@ -26,39 +26,27 @@ const dots = document.querySelectorAll('.dots .dot');
 
 let currentSlide = 0; // Index du slide actuel
 
-function updateSlide(index) {
-    currentSlide = index;
-
-    // // Mettre à jour le bullet, l'image et le texte correspondant à la slide actuelle
-    dots.forEach((dot, idx) => {
-        if (idx == currentSlide) {
-            dot.classList.add('dot_selected');
-        } else {
-            dot.classList.remove('dot_selected');
-        }
-    });
-    bannerImg.src = './assets/images/slideshow/' + slides[currentSlide].image;
-    tagLine.innerHTML = slides[currentSlide].tagLine;
-}
-
 // Changement d'affichage au clic sur la flèche droite
 arrowRight.addEventListener('click', () => {
-    if (currentSlide == slides.length - 1) {
-        currentSlide = 0;
-    } else {
-        currentSlide++;
-    }
-    updateSlide(currentSlide);
     console.log('Clic flèche droite');
+    currentSlide = (currentSlide === slides.length - 1) ? 0 : currentSlide + 1;
+    updateSlide(currentSlide);
 });
 
 // Changement d'affichage au clic sur la flèche gauche
 arrowLeft.addEventListener('click', () => {
-    if (currentSlide == 0) {
-        currentSlide = slides.length - 1;
-    } else {
-        currentSlide--;
-    }
-    updateSlide(currentSlide);
     console.log('Clic flèche gauche');
+    currentSlide = (currentSlide === 0) ? slides.length - 1 : currentSlide - 1;
+    updateSlide(currentSlide);
 });
+
+function updateSlide(index) {
+    currentSlide = index;
+
+    // // Mettre à jour le bullet, l'image et le texte correspondant à la slide actuelle
+    dots.forEach((dot, i) => {
+        dot.classList.toggle('dot_selected', i === currentSlide);
+    });
+    bannerImg.src = './assets/images/slideshow/' + slides[currentSlide].image;
+    tagLine.innerHTML = slides[currentSlide].tagLine;
+}
